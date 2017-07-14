@@ -1,4 +1,49 @@
 (setq frame-title-format "emacs")
+
+;;;************************************************************
+;;; Begin install plugin **************************************
+;;;************************************************************
+;;  ___ _   _   _  ___ ___ _  _
+;; | _ \ | | | | |/ __|_ _| \| |
+;; |  _/ |_| |_| | (_ || || .` |
+;; |_| |____\___/ \___|___|_|\_|
+
+;;; add repositories to be able to install packages
+
+(when (>= emacs-major-version 24)
+  (require 'package)
+  (setq package-enable-at-startup nil)
+  (setq package-archives '())
+  (package-initialize)
+  ;; (add-to-list 'package-archives
+  ;; 	       '("melpa" . "http://melpa.milkbox.net/packages/") t)
+  (add-to-list 'package-archives
+  	       '("gnu" . "http://elpa.gnu.org/packages/"))  
+  (add-to-list 'package-archives
+	       '("marmalade" . "https://marmalade-repo.org/packages/"))
+  (add-to-list 'package-archives
+	       '("org" . "http://orgmode.org/elpa/") t)
+  (add-to-list 'package-archives
+	       '("tromey" . "http://tromey.com/elpa/") t)
+  ;; (add-to-list 'package-archives
+  ;; 	       '("melpa-stable" . "http://melpa.org/packages/") t)
+  )
+
+
+;; On-demand installation of packages
+(defun require-package (package &optional min-version no-refresh)
+  "Ask elpa to install given PACKAGE."
+  (if (package-installed-p package min-version)
+      t
+    (if (or (assoc package package-archive-contents) no-refresh)
+        (package-install package)
+      (progn
+        (package-refresh-contents)
+        (require-package package min-version t)))))
+
+;;;************************************************************
+;;; Simple setting
+;;;************************************************************
 (global-set-key (kbd "C-x C-b") 'ibuffer) 
 
 (menu-bar-mode t)
@@ -10,36 +55,37 @@
 
 ;;; display a horizontal bar cursor 
 (set-default 'cursor-type 'hollow)
-
 ;;; auto pair 
 (electric-pair-mode t)
-
 ;;; C-x C-f hint
 (ido-mode)
-
 ;;; show column number
 (column-number-mode)
 (line-number-mode)
 (global-linum-mode)
-
 ;;; highlight matching parenthesis
 (show-paren-mode)
-
 ;;; highlight current line
-(global-hl-line-mode -1)
-
+(global-hl-line-mode 1)
 ;;; winner-undo/redo
 (winner-mode t)
-
 ;;; Keybindings are of the form MODIFIER-{left,right,up,down}.
 ;;; Default MODIFIER is 'shift.
 (windmove-default-keybindings)
+;;;************************************************************
+;;; Simple setting(end)
+;;;************************************************************
 
+;;;************************************************************
+;; self defined funcs
+;;;************************************************************
+
+;;;************************************************************
 ;;; Hightlight *.cu file 
 (setq auto-mode-alist (append
                   '(("\\.cu$" . c++-mode))
                     auto-mode-alist))
-
+;;;************************************************************
 
 ;;;************************************************************
 ;; Use C-tab to autocomplete the files and directories
@@ -51,17 +97,12 @@
 (comint-dynamic-complete-as-filename))
 (global-set-key (kbd "C-c k") 'atfd)
 ;;;************************************************************
-
 ;;; Open yas-minor-mode when open an .py file
 ;; (add-hook 'python-mode (lambda ()
 ;; 			 (yas-minor-mode t)))
-;; ;;; Doxymacs doxygen
-;; (add-hook 'c-mode-common-hook 'doxymacs-mode)
+;;;************************************************************
 
-;;  __  __  __      __
-;; |  \/  | \ \    / /
-;; | |\/| |  \ \/\/ /
-;; |_|  |_|   \_/\_/
+;;;************************************************************
 ;;; Copy current line without selection
 (defun xah-copy-line-or-region ()
   "Copy current line, or text selection.
@@ -96,7 +137,8 @@ Version 2016-06-18"
     ))
 (global-set-key (kbd "M-w") 'xah-copy-line-or-region)
 ;;;------------------------------------------------------------
-;;; 
+
+;;;------------------------------------------------------------
 (require 'dired)
 ;; (define-key dired-mode-map
 ;;   (kbd "RET") 'dired-find-alternate-file)
@@ -105,68 +147,8 @@ Version 2016-06-18"
   (interactive) (find-alternate-file "..")))
 ;;;------------------------------------------------------------
 
-;;;*******************************************************************
-;;; Max window size when start emacs.
-;;;*******************************************************************
-(defun my-max-window()
-  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-			 '(2 "_NET_WM_STATE_MAXIMIZED_HORZ" 0))
-  (x-send-client-message nil 0 nil "_NET_WM_STATE" 32
-			 '(2 "_NET_WM_STATE_MAXIMIZED_VERT" 0))
-  )
-(run-with-idle-timer 1 nil 'my-max-window)
-;;;*******************************************************************
-
-;;;************************************************************
-;;; Begin install plugin **************************************
-;;;************************************************************
-;;  ___ _   _   _  ___ ___ _  _
-;; | _ \ | | | | |/ __|_ _| \| |
-;; |  _/ |_| |_| | (_ || || .` |
-;; |_| |____\___/ \___|___|_|\_|
-
-;;; add repositories to be able to install packages
-
-(when (>= emacs-major-version 24)
-  (require 'package)
-  (setq package-enable-at-startup nil)
-  (setq package-archives '())
-  (package-initialize)
-  (add-to-list 'package-archives
-	       '("melpa" . "http://melpa.milkbox.net/packages/") t)
-  (add-to-list 'package-archives
-	       '("gnu" . "http://elpa.gnu.org/packages/"))  
-  (add-to-list 'package-archives
-	       '("marmalade" . "https://marmalade-repo.org/packages/"))
-  (add-to-list 'package-archives
-	       '("org" . "http://orgmode.org/elpa/") t)
-  (add-to-list 'package-archives
-	       '("tromey" . "http://tromey.com/elpa/") t)
-  )
-
-;; (require 'package)
-;; (add-to-list 'package-archives
-;; 	     '("melpa" . "http://melpa.milkbox.net/packages/")
-;; 	     t)
-;; (add-to-list 'package-archives
-;; 	     '("marmalade" . "http://marmalade-repo.org/packages/")
-;; 	     t)
-;; ;; (add-to-list 'package-archives
-;; ;; 	     '("melpa-stable" . "http://melpa.org/packages/"))
 
 
-;; (package-initialize)
-
-;; On-demand installation of packages
-(defun require-package (package &optional min-version no-refresh)
-  "Ask elpa to install given PACKAGE."
-  (if (package-installed-p package min-version)
-      t
-    (if (or (assoc package package-archive-contents) no-refresh)
-        (package-install package)
-      (progn
-        (package-refresh-contents)
-        (require-package package min-version t)))))
 ;;;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 ;;  __  __  ___  _  _  ___  _  __   _   ___
 ;; |  \/  |/ _ \| \| |/ _ \| |/ /  /_\ |_ _|
@@ -215,7 +197,7 @@ Version 2016-06-18"
 (add-hook 'term-mode-hook (lambda()
         (setq yas-dont-activate t)))
 (setq multi-term-program "/bin/bash")
-(global-set-key (kbd "<f8>") 'multi-term)
+(global-set-key (kbd "<f3>") 'multi-term)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -228,3 +210,126 @@ Version 2016-06-18"
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(term-color-green ((t (:background "black" :foreground "#A6E22E")))))
+;;;------------------------------------------------------------
+;;;------------------------------------------------------------
+;;  _   _ _  _ ___   ___    _____ ___ ___ ___
+;; | | | | \| |   \ / _ \  |_   _| _ \ __| __|
+;; | |_| | .` | |) | (_) |   | | |   / _|| _|
+;;  \___/|_|\_|___/ \___/    |_| |_|_\___|___|
+
+(require-package 'undo-tree)
+(global-undo-tree-mode)
+(global-set-key (kbd "M-/") 'undo-tree-visualize)
+;;;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+;;    _   _    ___ _  _   _
+;;   /_\ | |  | _ \ || | /_\
+;;  / _ \| |__|  _/ __ |/ _ \
+;; /_/ \_\____|_| |_||_/_/ \_\
+
+(require-package 'alpha)
+(require 'alpha)
+(global-set-key (kbd "C-M-)") 'transparency-increase)
+(global-set-key (kbd "C-M-(") 'transparency-decrease)
+;;;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+;;  __  __ _   _ _  _____ ___    ___ _   _ ___  ___  ___  ___
+;; |  \/  | | | | ||_   _|_ _|  / __| | | | _ \/ __|/ _ \| _ \
+;; | |\/| | |_| | |__| |  | |  | (__| |_| |   /\__ \ (_) |   /
+;; |_|  |_|\___/|____|_| |___|  \___|\___/|_|_\|___/\___/|_|_\
+
+(require-package 'multiple-cursors)
+(global-set-key (kbd "C-M-}") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-M-{") 'mc/mark-previous-like-this)
+;;;++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+;; __   ___   ___ _  _ ___ ___ ___ ___ _____
+;; \ \ / /_\ / __| \| |_ _| _ \ _ \ __|_   _|
+;;  \ V / _ \\__ \ .` || ||  _/  _/ _|  | |
+;;   |_/_/ \_\___/_|\_|___|_| |_| |___| |_|
+
+(require-package 'yasnippet)
+(yas-global-mode t)
+(add-hook 'prog-mode-hook 'yas-minor-mode)
+;;;------------------------------------------------------------
+;;  ___ ___ _  _ ___    ___ ___ _    ___
+;; | __|_ _| \| |   \  | __|_ _| |  | __|
+;; | _| | || .` | |) | | _| | || |__| _|
+;; |_| |___|_|\_|___/  |_| |___|____|___|
+
+;; (require-package 'helm)
+(require-package 'find-file-in-project)
+(global-set-key (kbd "<f4>") 'find-file-in-project)
+;; Usage,
+;; - `M-x find-file-in-project-by-selected' use the selected region
+;; as the keyword to search file.  Or you need provide the keyword
+;; if no region selected.
+;; - `M-x find-directory-in-project-by-selected' use the select region
+;; to find directory.  Or you need provide the keyword if no region
+;; selected.
+;; - `M-x find-file-in-project' will start search file immediately
+;; - `M-x ffip-create-project-file' create .dir-locals.el
+;;;------------------------------------------------------------
+;;  _  ___   _____  ___    _
+;; | || \ \ / /   \| _ \  /_\
+;; | __ |\ V /| |) |   / / _ \
+;; |_||_| |_| |___/|_|_\/_/ \_\
+
+(require-package 'hydra)
+(defhydra hydra-zoom (global-map "<f2>")
+  "zoom"
+  ("g" text-scale-increase "in")
+  ("l" text-scale-decrease "out"))
+;;;------------------------------------------------------------
+;;    ___   ____   __
+;;   /_\ \ / /\ \ / /
+;;  / _ \ V /  \ V /
+;; /_/ \_\_/    |_|
+
+(require-package 'avy)
+(global-set-key (kbd "C->") 'avy-goto-word-or-subword-1)
+;;;------------------------------------------------------------
+;;  ___ ___ _   _ ___ ___ ___ ___  __   _____
+;; |_ _| _ ) | | | __| __| __| _ \ \ \ / / __|
+;;  | || _ \ |_| | _|| _|| _||   /  \ V / (__
+;; |___|___/\___/|_| |_| |___|_|_\   \_/ \___|
+; group buffers in ibuffer list by VC project
+(require-package 'ibuffer-vc)
+(add-hook 'ibuffer-hook
+	  (lambda ()
+	    (ibuffer-vc-set-filter-groups-by-vc-root)
+	    (unless (eq ibuffer-sorting-mode 'alphabetic)
+	      (ibuffer-do-sort-by-alphabetic))))
+;;;------------------------------------------------------------
+;; (require-package 'flx-ido)
+;; (require 'flx-ido)
+;; (ido-mode 1)
+;; (ido-everywhere 1)
+;; (flx-ido-mode 1)
+;; ;; disable ido faces to see flx highlights.
+;; (setq ido-enable-flex-matching t)
+;; (setq ido-use-faces nil)
+;;;------------------------------------------------------------
+;;  _  _ _      _____   ____  __ ___  ___  _
+;; | || | |    / __\ \ / /  \/  | _ )/ _ \| |
+;; | __ | |__  \__ \\ V /| |\/| | _ \ (_) | |__
+;; |_||_|____| |___/ |_| |_|  |_|___/\___/|____|
+(require-package 'highlight-symbol)
+(require 'highlight-symbol)
+;; (highlight-symbol-mode t)
+;; (highlight-symbol-nav-mode t)
+(add-hook 'prog-mode-hook 'highlight-symbol-mode)
+(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
+;;;------------------------------------------------------------
+;;  _  _ _      ___ _  _ ___  ___ _  _ _____
+;; | || | |    |_ _| \| |   \| __| \| |_   _|
+;; | __ | |__   | || .` | |) | _|| .` | | |
+;; |_||_|____| |___|_|\_|___/|___|_|\_| |_|
+;; (require-package 'highlight-indent-guides)
+;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
+;; (setq highlight-indent-guides-method 'character)
+;;;------------------------------------------------------------
+
+;;;************************************************************
+;;; End install plugin **************************************
+;;;************************************************************
+
+
+(provide 'init)
