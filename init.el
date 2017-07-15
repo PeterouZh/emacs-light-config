@@ -55,8 +55,6 @@
 
 ;;; display a horizontal bar cursor 
 (set-default 'cursor-type 'hollow)
-;;; auto pair 
-(electric-pair-mode t)
 ;;; C-x C-f hint
 (ido-mode)
 ;;; show column number
@@ -91,11 +89,14 @@
 ;; Use C-tab to autocomplete the files and directories
 ;; based on the two commands `comint-dynamic-complete-filename`
 ;; and `comint-dynamic-list-filename-completions`
+;(add-hook 'prog-mode-hook 'comint-mode)
+(autoload 'comint-dynamic-complete-filename "comint" nil t)
 (defun atfd ()
 (interactive)
 (comint-dynamic-list-filename-completions)
 (comint-dynamic-complete-as-filename))
-(global-set-key (kbd "C-c k") 'atfd)
+(global-set-key (kbd "M-]") 'atfd)
+;(global-set-key (kbd "M-[") 'comint-dynamic-complete-filename)
 ;;;************************************************************
 ;;; Open yas-minor-mode when open an .py file
 ;; (add-hook 'python-mode (lambda ()
@@ -209,6 +210,7 @@ Version 2016-06-18"
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(term-color-blue ((t (:background "black" :foreground "yellow"))))
  '(term-color-green ((t (:background "black" :foreground "#A6E22E")))))
 ;;;------------------------------------------------------------
 ;;;------------------------------------------------------------
@@ -298,14 +300,14 @@ Version 2016-06-18"
 	    (unless (eq ibuffer-sorting-mode 'alphabetic)
 	      (ibuffer-do-sort-by-alphabetic))))
 ;;;------------------------------------------------------------
-;; (require-package 'flx-ido)
-;; (require 'flx-ido)
-;; (ido-mode 1)
-;; (ido-everywhere 1)
-;; (flx-ido-mode 1)
-;; ;; disable ido faces to see flx highlights.
-;; (setq ido-enable-flex-matching t)
-;; (setq ido-use-faces nil)
+(require-package 'flx-ido)
+(require 'flx-ido)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
 ;;;------------------------------------------------------------
 ;;  _  _ _      _____   ____  __ ___  ___  _
 ;; | || | |    / __\ \ / /  \/  | _ )/ _ \| |
@@ -316,7 +318,10 @@ Version 2016-06-18"
 ;; (highlight-symbol-mode t)
 ;; (highlight-symbol-nav-mode t)
 (add-hook 'prog-mode-hook 'highlight-symbol-mode)
-(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
+(global-set-key (kbd "M-n") 'highlight-symbol-next) 
+(global-set-key (kbd "M-p") 'highlight-symbol-prev) 
+;(add-hook 'prog-mode-hook 'highlight-symbol-nav-mode)
+;;;------------------------------------------------------------
 ;;;------------------------------------------------------------
 ;;  _  _ _      ___ _  _ ___  ___ _  _ _____
 ;; | || | |    |_ _| \| |   \| __| \| |_   _|
@@ -326,7 +331,15 @@ Version 2016-06-18"
 ;; (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 ;; (setq highlight-indent-guides-method 'character)
 ;;;------------------------------------------------------------
-
+;; autopair mode
+;;; auto pair 
+;(electric-pair-mode t)
+(require-package 'autopair)
+(require 'autopair)
+(autopair-global-mode) ;; to enable in all buffers
+;;;************************************************************
+(require-package 'auto-complete)
+(global-auto-complete-mode t)
 ;;;************************************************************
 ;;; End install plugin **************************************
 ;;;************************************************************
