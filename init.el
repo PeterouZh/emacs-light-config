@@ -25,8 +25,8 @@
 	       '("org" . "http://orgmode.org/elpa/") t)
   (add-to-list 'package-archives
 	       '("tromey" . "http://tromey.com/elpa/") t)
-  ;; (add-to-list 'package-archives
-  ;; 	       '("melpa-stable" . "http://melpa.org/packages/") t)
+  (add-to-list 'package-archives
+  	       '("melpa-stable" . "http://melpa.org/packages/") t)
   )
 
 
@@ -96,6 +96,7 @@
 (comint-dynamic-list-filename-completions)
 (comint-dynamic-complete-as-filename))
 (global-set-key (kbd "M-]") 'atfd)
+(global-set-key (kbd "C-c k") 'atfd)
 ;(global-set-key (kbd "M-[") 'comint-dynamic-complete-filename)
 ;;;************************************************************
 ;;; Open yas-minor-mode when open an .py file
@@ -210,6 +211,7 @@ Version 2016-06-18"
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(highlight-symbol-face ((t (:background "lime green"))))
  '(term-color-blue ((t (:background "black" :foreground "yellow"))))
  '(term-color-green ((t (:background "black" :foreground "#A6E22E")))))
 ;;;------------------------------------------------------------
