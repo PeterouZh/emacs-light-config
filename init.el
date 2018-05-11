@@ -10,6 +10,8 @@
 
 ;;; add repositories to be able to install packages
 
+(setq make-backup-files nil)
+
 (when (>= emacs-major-version 24)
   (require 'package)
   (setq package-enable-at-startup nil)
