@@ -2,6 +2,17 @@
 
 (when (>= emacs-major-version 24)
   (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/") t)
+  (when (boundp 'package-pinned-packages)
+    (setq package-pinned-packages nil)
+    (setq package-pinned-packages
+	  '(
+            (avy            . "melpa")
+            (counsel            . "melpa")
+            (ivy            . "melpa")
+            (swiper            . "melpa")	    	    
+            (smex            . "melpa")
+            (window-number            . "melpa")
+	    )))
   )
 
 ;;add whatever packages you want here
@@ -9,7 +20,6 @@
                  company
                  monokai-theme
                  hungry-delete
-                 swiper
                  counsel
                  smartparens
                  js2-mode
@@ -21,6 +31,14 @@
                  js2-refactor
                  expand-region
                  iedit
+		 ;;
+		 multi-term
+		 avy
+		 highlight-symbol
+		 undo-tree
+		 ivy
+                 swiper
+		 window-number
                  )  "Default packages")
 
 (setq package-selected-packages zilongshanren/packages)

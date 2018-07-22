@@ -1,3 +1,10 @@
+(global-set-key (kbd "<f2>") 'avy-goto-word-or-subword-1)
+(global-set-key (kbd "<f3>") 'multi-term)
+(global-set-key (kbd "<f4>") 'counsel-git)
+(global-set-key (kbd "M-n") 'highlight-symbol-next) 
+(global-set-key (kbd "M-p") 'highlight-symbol-prev) 
+(global-set-key (kbd "M-/") 'undo-tree-visualize)
+(global-set-key (kbd "M-w") 'xah-copy-line-or-region)
 
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
@@ -6,7 +13,6 @@
 (global-set-key (kbd "C-h f") 'counsel-describe-function)
 (global-set-key (kbd "C-h v") 'counsel-describe-variable)
 
-(global-set-key (kbd "<f2>") 'open-my-init-file)
 
 
 (global-set-key "\C-x\ \C-r" 'recentf-open-files)
@@ -15,7 +21,7 @@
 (global-set-key (kbd "C-h C-v") 'find-variable)
 (global-set-key (kbd "C-h C-k") 'find-function-on-key)
 
-(global-set-key (kbd "C-c p f") 'counsel-git)
+
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 

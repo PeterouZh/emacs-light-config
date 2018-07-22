@@ -20,6 +20,11 @@
 (require 'init-better-defaults)
 (require 'init-keybindings)
 (require 'org)
+(require 'init-multi-term)
+(require 'init-highlight-symbol)
+(require 'undo-tree)
+(require 'window-number)
+
 
 
 (setq custom-file (expand-file-name "lisp/custom.el" user-emacs-directory))
