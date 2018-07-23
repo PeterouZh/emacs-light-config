@@ -24,8 +24,8 @@
 (require 'org)
 (require 'init-multi-term)
 (require 'init-highlight-symbol)
-(require 'undo-tree)
-(require 'window-number)
+(require 'init-undo-tree)
+(require 'init-window-number)
 
 
 
