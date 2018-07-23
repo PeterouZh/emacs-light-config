@@ -12,6 +12,7 @@
             (swiper            . "melpa")	    	    
             (smex            . "melpa")
             (window-number            . "melpa")
+            (magit            . "melpa")
 	    )))
   )
 
@@ -39,6 +40,7 @@
 		 ivy
                  swiper
 		 window-number
+		 magit
                  )  "Default packages")
 
 (setq package-selected-packages zilongshanren/packages)
