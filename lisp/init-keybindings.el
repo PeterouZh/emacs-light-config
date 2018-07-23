@@ -7,6 +7,7 @@
 (global-set-key (kbd "M-w") 'xah-copy-line-or-region)
 (global-set-key (kbd "C-x o") 'window-number-switch)
 
+
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
 (global-set-key (kbd "M-x") 'counsel-M-x)
