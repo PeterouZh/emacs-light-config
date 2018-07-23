@@ -103,7 +103,7 @@ Version 2016-06-18"
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(setq dired-recursive-deletes 'always)
+;;(setq dired-recursive-deletes 'always)
 (setq dired-recursive-copies 'always)
 
 (put 'dired-find-alternate-file 'disabled nil)
