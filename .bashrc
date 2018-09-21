@@ -118,7 +118,7 @@ fi
 
 export PYTHONPATH=""
 #export PATH="/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
-export PATH=/home/Peterou/bin:/home/Peterou/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin 
+export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin 
 
 alias proxychains='proxychains4 -f $HOME/vpn/proxychains.conf'
 alias tensorboard='tensorboard --host 127.0.0.1 --port 8888'
