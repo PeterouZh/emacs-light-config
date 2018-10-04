@@ -24,7 +24,8 @@
 (global-set-key (kbd "C-h C-v") 'find-variable)
 (global-set-key (kbd "C-h C-k") 'find-function-on-key)
 
-
+;; multi-term
+(global-set-key (kbd "<f5>") 'multi-term-dedicated-open)
 
 (global-set-key (kbd "C-c a") 'org-agenda)
 
