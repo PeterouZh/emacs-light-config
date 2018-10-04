@@ -13,6 +13,8 @@
             (smex            . "melpa")
             (window-number            . "melpa")
             (magit            . "melpa")
+            (treemacs            . "melpa")
+	    (treemacs-projectile  . "melpa")
 	    )))
   )
 
@@ -41,6 +43,8 @@
                  swiper
 		 window-number
 		 magit
+		 treemacs
+		 treemacs-projectile
                  )  "Default packages")
 
 (setq package-selected-packages zilongshanren/packages)
