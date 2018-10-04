@@ -35,7 +35,9 @@ Version 2016-06-18"
     (forward-char)
     ))
 ;;;************************************************************
-
+;; Copy region of mouse selected
+(setq mouse-drag-copy-region t)
+;;;************************************************************
 
 (setq ring-bell-function 'ignore)
 
